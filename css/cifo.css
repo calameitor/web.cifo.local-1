@@ -21,14 +21,28 @@
 	padding:0.5rem;
 }*/
 .fa {
-  padding: 0.2rem;
-  font-size: 0.7rem;
-  width: 1rem;
+  padding: 0.3rem;
+  font-size: .9rem;
+  width: 1.4rem;
   text-align: center;
   text-decoration: none;
-  margin: 5px 2px;
+  margin: 4px 2px;
   border-radius: 50%;
 }
+footer .fa {
+  background: #00A4D5;
+  color: white;
+  padding: 0.5rem;
+  font-size: 1.3rem;
+  width: 1.6rem;
+  margin: 5px 5px;
+}
+
+.bg-custom{
+	background:#00A4D5!important;
+	border:0px!important;
+}
+
 .fa:hover {
     opacity: 0.7;
 }
@@ -36,6 +50,8 @@
   background: #3B5998;
   color: white;
 }
+
+
 
 .fa-twitter {
   background: #55ACEE;
@@ -59,4 +75,8 @@
 .fa-pinterest {
   background: #cb2027;
   color: white;
+}
+.carousel img{
+	min-height: 150px;
+	object-fit:cover;
 }
