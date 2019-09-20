@@ -55,10 +55,10 @@ function activeMenu() {
 	breadc = document.querySelectorAll('[aria-label="breadcrumb"]');
 	if (breadc[0]) {
 		if (uri == "Home.html") {
-			breadc[0].innerHTML = '<ol class="breadcrumb"> <li class="breadcrumb-item active" aria-current="page">Home</li></ol>';
+			breadc[0].innerHTML = '<ol class="breadcrumb align-items-center"> <li class="breadcrumb-item active" aria-current="page"><i class="fa fa-home" style="color:#00A4D5"></i>Inicio</li></ol>';
 		} else {
 			urishort= uri.split('.')[0]
-			breadc[0].innerHTML = '<ol class="breadcrumb"><li class="breadcrumb-item" aria-current="page">Home</li><li class="breadcrumb-item active" aria-current="page">' + urishort + "</li></ol>";
+			breadc[0].innerHTML = '<ol class="breadcrumb align-items-center"><li class="breadcrumb-item" aria-current="page"><i class="fa fa-home" style="color:#00A4D5"></i>Inicio</li><li class="breadcrumb-item active" aria-current="page">' + urishort + "</li></ol>";
 		}
 	}
 }
