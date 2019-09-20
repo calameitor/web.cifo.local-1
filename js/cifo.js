@@ -51,13 +51,14 @@ function activeMenu() {
 			active[i].className += " active "
 		}
 	}
-	debugger;
+	//debugger;
 	breadc = document.querySelectorAll('[aria-label="breadcrumb"]');
 	if (breadc[0]) {
 		if (uri == "Home.html") {
 			breadc[0].innerHTML = '<ol class="breadcrumb"> <li class="breadcrumb-item active" aria-current="page">Home</li></ol>';
 		} else {
-			breadc[0].innerHTML = '<ol class="breadcrumb"><li class="breadcrumb-item" aria-current="page">Home</li><li class="breadcrumb-item active" aria-current="page">uri</li></ol>'
+			urishort= uri.split('.')[0]
+			breadc[0].innerHTML = '<ol class="breadcrumb"><li class="breadcrumb-item" aria-current="page">Home</li><li class="breadcrumb-item active" aria-current="page">' + urishort + "</li></ol>";
 		}
 	}
 }
