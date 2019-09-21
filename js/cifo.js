@@ -39,7 +39,7 @@ function includeHTML() {
 			return;
 		}
 	}
-	0
+	
 };
 
 function activeMenu() {
