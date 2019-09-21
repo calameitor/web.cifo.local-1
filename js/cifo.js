@@ -71,3 +71,5 @@ function myMap() {
 	};
 	var map = new google.maps.Map(document.getElementById("cifoMap"), mapProp);
 }
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBz3_10TLdHSmRnu1R-zLuZgj6wJX43FKs&callback=myMap"></script>
