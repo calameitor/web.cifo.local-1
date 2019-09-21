@@ -3,7 +3,7 @@
  */
 
 window.addEventListener("load", includeHTML);
-window.addEventListener("load", myMap);
+
 
 function includeHTML() {
 	// console.log(page);
