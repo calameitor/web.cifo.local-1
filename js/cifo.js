@@ -51,14 +51,23 @@ function activeMenu() {
 			active[i].className += " active "
 		}
 	}
-	//debugger;
+	// debugger;
 	breadc = document.querySelectorAll('[aria-label="breadcrumb"]');
 	if (breadc[0]) {
 		if (uri == "Home.html") {
 			breadc[0].innerHTML = '<ol class="breadcrumb align-items-center"> <li class="breadcrumb-item active" aria-current="page"><i class="fa fa-home" style="color:#00A4D5"></i>Inicio</li></ol>';
 		} else {
-			urishort= uri.split('.')[0]
-			breadc[0].innerHTML = '<ol class="breadcrumb align-items-center"><li class="breadcrumb-item" aria-current="page"><i class="fa fa-home" style="color:#00A4D5"></i>Inicio</li><li class="breadcrumb-item active" aria-current="page">' + urishort + "</li></ol>";
+			urishort = uri.split('.')[0]
+			breadc[0].innerHTML = '<ol class="breadcrumb align-items-center"><li class="breadcrumb-item" aria-current="page"><i class="fa fa-home" style="color:#00A4D5"></i>Inicio</li><li class="breadcrumb-item active" aria-current="page">'
+					+ urishort + "</li></ol>";
 		}
 	}
+}
+
+function myMap() {
+	var mapProp = {
+		center : new google.maps.LatLng(51.508742, -0.120850),
+		zoom : 5,
+	};
+	var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
 }
