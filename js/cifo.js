@@ -66,7 +66,7 @@ function activeMenu() {
 }
 
 function Map() {
-	var mymap = L.map('cifoMap').setView([ 41.4168484, 2.1336355 ], 13);
+	var mymap = L.map('cifoMap').setView([ 41.4168484, 2.1336355 ], 15);
 
 	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
 					{
