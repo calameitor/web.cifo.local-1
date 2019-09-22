@@ -76,8 +76,9 @@ function Map() {
 								+ 'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
 						id : 'mapbox.streets'
 					}).addTo(mymap);
+	
 	var marker = L.marker([ 41.4168272, 2.0635956 ]).addTo(mymap);
 
-	var popup = L.popup().setLatLng([ 41.4168272, 2.0635956 ]).setContent(
-			"I am a standalone popup.").openOn(mymap);
+	//var popup = L.popup().setLatLng([ 41.4168272, 2.0635956 ]).setContent(
+		//	"I am a standalone popup.").openOn(mymap);
 }
