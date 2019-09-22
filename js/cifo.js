@@ -66,7 +66,7 @@ function activeMenu() {
 }
 
 function Map() {
-	var mymap = L.map('cifoMap').setView([ 41.4168272, 2.0635956 ], 13);
+	var mymap = L.map('cifoMap').setView([ 41.4168484, 2.1336355 ], 13);
 
 	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
 					{
@@ -77,7 +77,7 @@ function Map() {
 						id : 'mapbox.streets'
 					}).addTo(mymap);
 	
-	var marker = L.marker([ 41.4168272, 2.0635956 ]).addTo(mymap);
+	var marker = L.marker([ 41.4168484, 2.1336355 ]).addTo(mymap);
 
 	//var popup = L.popup().setLatLng([ 41.4168272, 2.0635956 ]).setContent(
 		//	"I am a standalone popup.").openOn(mymap);
