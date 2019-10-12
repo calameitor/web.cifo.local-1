@@ -1,6 +1,6 @@
 //CHECkCHECKCHECK
 if (!detectCookie('rgpda')){
-	debugger;
+	//debugger;
 	var cRG=document.getElementById("boxRGPD");
 	cRG.classList.add("d-none")
 }
