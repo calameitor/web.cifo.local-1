@@ -2,7 +2,7 @@
 if (!detectCookie('rgpda')){
 	debugger;
 	var cRG=document.getElementById("boxRGPD");
-	cRG.classList.add("d-none")
+	cRG.classList.remove("d-none")
 }
 
 window.addEventListener("load",InitEvent)
