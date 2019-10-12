@@ -1,4 +1,5 @@
-/*
+/* Core functions for cookie management
+ * Below cookie base64 a--> cloud b-->user
 var st=window.btoa('i11');
 st='violeta'+'='+st
 document.cookie=st; */
