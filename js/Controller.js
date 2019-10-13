@@ -1,12 +1,12 @@
 var xhr,elem;
 
-document.getElementById("btnBook").addEventListener('click', (e)=>{
+
 	xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
 		if (xhr.readyState == 4 && xhr.status ==200 ) {
             objLang=JSON.parse(xhr.responseText);
             for(var i=0 ; i< objLang.length; i++){
-            	cadena += <a class="dropdown-item" href="#">'+ objLang[i].name+ '</a>'; 
+            	cadena += '<a class="dropdown-item" href="#">'+ objLang[i].name+ '</a>'; 
             }
             
             document.getElementById("langBtn").innerHTML = cadena;
@@ -17,7 +17,7 @@ document.getElementById("btnBook").addEventListener('click', (e)=>{
 	}
 	xhr.open('GET', 'http://pla3.pqtm19.local/JSON/languages.JSON', true);
 	xhr.send();
-})
+
 
 // EXAMPLE FOR AJAX CONTROLLER
 /*document.getElementById("btnBook").onclick=function(){
