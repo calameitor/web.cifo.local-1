@@ -1,4 +1,4 @@
-var xhr,elem;
+var xhr,elem, cadena;
 
 
 	xhr = new XMLHttpRequest();
@@ -7,8 +7,7 @@ var xhr,elem;
             objLang=JSON.parse(xhr.responseText);
             for(var i=0 ; i< objLang.length; i++){
             	cadena += '<a class="dropdown-item" href="#">'+ objLang[i].name+ '</a>'; 
-            }
-            
+            }            
             document.getElementById("langBtn").innerHTML = cadena;
           } else if (xhr.readyState ==4 && xhr.status !=200)
         	  {
