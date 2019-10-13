@@ -1,4 +1,4 @@
-var xhr,elem, cadena;
+var xhr,elem;
 
 
 	xhr = new XMLHttpRequest();
@@ -14,7 +14,7 @@ var xhr,elem, cadena;
         	  alert('request error');
         	  }
 	}
-	xhr.open('GET', 'http://pla3.pqtm19.local/JSON/languages.JSON', true);
+	xhr.open('GET', 'https://cifo.azurewebsites.net/js/languages.json', true);
 	xhr.send();
 
 
