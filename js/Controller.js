@@ -14,7 +14,7 @@ var xhr,elem;
         	  alert('request error');
         	  }
 	}
-	xhr.open('GET', 'http://cifo.azurewebsites.net/JSON/languages.json, true);
+	xhr.open('GET','http://cifo.azurewebsites.net/JSON/languages.json, true);
 	xhr.send();
 
 
