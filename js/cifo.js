@@ -66,7 +66,7 @@ function activeMenu() {
 }
 
 function Map() {
-debugger;
+
 	if (window.location.pathname == "/Contacto.html") {
 		var mymap = L.map('cifoMap').setView([ 41.4168484, 2.1336355 ], 15);
 
