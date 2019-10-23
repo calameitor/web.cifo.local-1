@@ -1,39 +1,27 @@
-var xhr,elem;
+/**
+ * Controller functions
+ */
 
 
-	xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function(){
-		if (xhr.readyState == 4 && xhr.status ==200 ) {
-            objLang=JSON.parse(xhr.responseText);
-            for(var i=0 ; i< objLang.length; i++){
-            	cadena += '<a class="dropdown-item" href="#">'+ objLang[i].name+ '</a>'; 
-            }            
-            document.getElementById("langBtn").innerHTML = cadena;
-          } else if (xhr.readyState ==4 && xhr.status !=200)
-        	  {
-        	  alert('request error');
-        	  }
-	}
-	xhr.open('GET','https://cifo.azurewebsites.net/JSON/languages.JSON', true);
-	xhr.send();
+
+
+
 
 
 // EXAMPLE FOR AJAX CONTROLLER
 /*document.getElementById("btnBook").onclick=function(){
-		// Crear instancia de l'objecte XMLHttpRequest sobre la variable xhr
-		if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+		// Instance creation for XMLHttpRequest class on object xhr
 			xhr = new XMLHttpRequest();
-		} else if (window.ActiveXObject) { // IE
-			xhr = new ActiveXObject("Microsoft.XMLHTTP");
-		}
+				
+		// Define callBack() function
+			xhr.addEventListener ("load", successAJAX);
+			xhr.addEventListener ("error", errorAJAX);
 		
-		// Definir la funció de callBack()
-		xhr.onreadystatechange = function(){
-			if (xhr.readyState == 4 &&  xhr.status == 200 ) {
-			    // tot va bé, s'ha rebut la resposta
+		function successAJAX (){
+			
 				var objBook=JSON.parse(xhr.responseText);
 				
-				//SUSTITUCIONES DE LA VISTA CUANDO JSON TIENE UNA VARIABLE 
+				// View sustitution when AJAX retorns ONLY one variable 
 				bookTmpl=bookTmpl.replace(/objBook\.Title/g,objBook.Title);
 				bookTmpl=bookTmpl.replace(/objBook\.Author/g,objBook.Author);
 				bookTmpl=bookTmpl.replace(/objBook\.Genre/g,objBook.Genre);
@@ -43,7 +31,7 @@ var xhr,elem;
 				bookTmpl=bookTmpl.replace(/objBook\.Detail\.ISBN-13/g,objBook.Detail["ISBN-13"]);
 				document.getElementById('boxBook').innerHTML=bookTmpl;
 				
-				// SUSTITUCIONES DE LA VISTA CUANDO JSON ES UN ARRAY
+				// View sustitution when AJAX is an array
 				var cadena="<table class=\"table \">";
 				for(var i=0 ; i< objBook.Price.length; i++){
 					cadena+="<tr>";
@@ -53,17 +41,18 @@ var xhr,elem;
 				}
 				cadena+="</table>";
 				document.querySelector("#boxBook .card-footer").innerHTML = cadena;
-				
-			}else if(xhr.readyState == 4 &&  xhr.status == 404){
-				alert('Ho sentim el servidor sembla que no es troba disponible');
-			}
-			
+		};
+		
+		function errorAJAX(){
+			console.log("Sorry, server is not available")
 		};
 		
 		
-		// Definim els parametres de sol·licitus HTTP
+		// HTTP parameter definition 
 		xhr.open('GET','http://pla3.pqtm19.local/JSON/book.php',true);
+		(NO --> not to send open pswd on JS)
 		xhr.setRequestHeader("Authorization", "Basic "+ btoa("pepe:12345"));
-		// Iniciem la sol·licitud
+		xhr.setRequestHeader("Cache-Control","private, no-cache, no-store, must-revalidate");
+		// Send the server request
 		xhr.send(null);
 	}*/

@@ -1,3 +1,13 @@
+/**
+ * Views defined as variables for the Controller to manipulate them
+ */
+
+
+
+
+
+
+
 // EJEMPLO DE VISTA FORMATEADA PARA MANIPULACION POR PARTE DEL CONTROLADOR
 /*var bookTmpl=`<div class="container">
 		<div class="row">
