@@ -189,7 +189,15 @@
 			document.getElementById('tblOfertas').innerHTML = cadena;
 		 /* Montamos tabla con DataTable*/
 	  	 	$(document).ready(function() {
-			$('#tblOfertas').DataTable();
+
+			$('#tblOfertas').DataTable({
+				language:{
+					url: "js/localization_es.json",
+					
+				}
+			});
+
+
 			});  
 	
 		});	
