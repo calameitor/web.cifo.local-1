@@ -186,85 +186,15 @@
 
   <script src="js/multipage.js" type="text/javascript"></script>
   <script>
-    // ******************************************   relleno datatable ***************************************************************
 
-
-    var tabla = $('#tbllibros').DataTable({
-      language: {
-        url: "./spanish.datatable.json"
-      },
-      lengthMenu: [5, 10, 25, 50, 75, 100],
-      pageLength: 5,
-      columnDefs: [{
-          "data": "isbn",
-          "targets": 0
-        },
-        {
-          "data": "cubierta",
-          "targets": 1
-        },
-        {
-          "data": "titulo",
-          "targets": 2
-        },
-        {
-          "data": "editorial",
-          "targets": 3
-        },
-        {
-          "data": "seccion",
-          "targets": 4
-        },
-        {
-          "data": "tema",
-          "targets": 5
-        }
-      ]
-
-    });
-    $('#ajaxModal').modal('show');
-
-
-    /* ------------------------------------- get libros ----------------------------- */
-
-
+    /* ----------------------------------- GEt Secciones  llamada AJAX--------------------------- */
     var xhr;
     xhr = new XMLHttpRequest();
 
+
     xhr.onreadystatechange = function() {
       if (xhr.readyState == 4 && xhr.status == 200) {
-        var objLibros = JSON.parse(xhr.responseText);
-
-        console.log(objLibros);
-        var arrLibros = objLibros.records;
-        console.log(arrLibros);
-        for (var i = 0; i < arrLibros.length; i++) {
-          tabla.row.add({
-            //"Isbn"		: '<a href="javascript:void(0)" onclick="viewLibro('+objLibros.records[i].id+')>'+objLibros.records[i].isbn+'</a>',
-            "isbn": objLibros.records[i].isbn,
-            "cubierta": '<img src="' + objLibros.records[i].cubierta + '" height="30px">',
-            "titulo": objLibros.records[i].titulo,
-            "editorial": objLibros.records[i].editorial,
-            "seccion": objLibros.records[i].seccion,
-            "tema": objLibros.records[i].tema
-          });
-        }
-        tabla.draw();
-        $('#ajaxModal').modal('hide');
-      }
-    }
-
-    xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/', true);
-    xhr.send();
-
-    /* ----------------------------------- GEt Secciones  llamada AJAX--------------------------- */
-    var xhr1;
-    xhr1 = new XMLHttpRequest();
-
-
-    xhr1.onreadystatechange = function() {
-      if (xhr1.readyState == 4 && xhr1.status == 200) {
-        var objSecciones = JSON.parse(xhr1.responseText);
+        var objSecciones = JSON.parse(xhr.responseText);
         var arrSecciones = objSecciones.records;
 
         if (objSecciones.status) {
@@ -276,8 +206,8 @@
         }
       }
     }
-    xhr1.open('GET', 'http://app.cifo.local/api/public/biblioteca/secciones/', true);
-    xhr1.send();
+    xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/secciones/', true);
+    xhr.send();
 
 
 
@@ -298,9 +228,7 @@
           var arrTemas = JSON.parse(this.responseText);
           console.log(arrTemas.status);
           console.log(arrTemas.records);
-          console.log(("tblSecciones").value);
-          console.log(("tblTemas").value);
-          console.log(("tblEditoriales").value);
+
           for (j in arrTemas.records) {
             var cadena = '<option value=' + arrTemas.records[j].id + '>';
             cadena += arrTemas.records[j].nombre + '</option>';
@@ -311,132 +239,227 @@
       xhr.open("GET", "http://app.cifo.local/api/public/biblioteca/temas/seccion/" + this.value + "/" + "&nocache=" + Math.random(), true);
       xhr.send(null);
 
+}
+
+
+      /* ======================= GET EITORILES     llamada AJAX ============================== */
 
 
 
-    /* ======================= GET EITORILES     llamada AJAX ============================== */
+      var xhr8;
+      xhr8 = new XMLHttpRequest();
+      xhr8.onreadystatechange = function() {
+        if (xhr8.readyState == 4 && xhr8.status == 200) {
+          var arrEditoriales = JSON.parse(this.responseText);
+          console.log(arrEditoriales.status);
+          console.log(arrEditoriales.records);
 
-
-    // document.getElementById('tblTemas').onchange = function() {
-
-    var xhr8;
-    xhr8 = new XMLHttpRequest();
-    xhr8.onreadystatechange = function() {
-      if (xhr8.readyState == 4 && xhr8.status == 200) {
-        var arrEditoriales = JSON.parse(this.responseText);
-        console.log(arrEditoriales.status);
-        console.log(arrEditoriales.records);
-
-        for (j in arrEditoriales.records) {
-          var cadena = '<option value=' + arrEditoriales.records[j].id + '>';
-          cadena += arrEditoriales.records[j].nombre + '</option>';
-          document.getElementById('tblEditoriales').innerHTML += cadena;
+          for (j in arrEditoriales.records) {
+            var cadena = '<option value=' + arrEditoriales.records[j].id + '>';
+            cadena += arrEditoriales.records[j].nombre + '</option>';
+            document.getElementById('tblEditoriales').innerHTML += cadena;
+          }
         }
+
       }
+      xhr8.open("GET", "http://app.cifo.local/api/public/biblioteca/editoriales/", true);
+      xhr8.send();
 
-  }
-    xhr8.open("GET", "http://app.cifo.local/api/public/biblioteca/editoriales/", true);
-    xhr8.send();
-
-
-
-    //
-    // <!-- *********************************************   filtraje   relleno datatable via AJAX**************************************************** -->
+      // ******************************************   relleno datatable ***************************************************************
 
 
-    document.getElementById("btnFiltrar").onclick = function() {
+      var tabla = $('#tbllibros').DataTable({
+        language: {
+          url: "./spanish.datatable.json"
+        },
+        lengthMenu: [5, 10, 25, 50, 75, 100],
+        pageLength: 5,
+        columnDefs: [{
+            "data": "isbn",
+            "targets": 0
+          },
+          {
+            "data": "cubierta",
+            "targets": 1
+          },
+          {
+            "data": "titulo",
+            "targets": 2
+          },
+          {
+            "data": "editorial",
+            "targets": 3
+          },
+          {
+            "data": "seccion",
+            "targets": 4
+          },
+          {
+            "data": "tema",
+            "targets": 5
+          }
+        ]
 
-      tabla.clear().draw();
-      var seccionId = document.getElementById("tblSecciones").value;
-      var temasId = document.getElementById("tblTemas").value;
-      var editorialId = document.getElementById("tblEditoriales").value;
-      console.log(seccionId);
-      console.log(temasId );
-      console.log(editorialId);
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-          var objLibros = JSON.parse(xhr.responseText);
-          var arrLibros = objLibros.records;
+      });
+      $('#ajaxModal').modal('show');
+
+
+      /* ------------------------------------- get libros ----------------------------- */
+
+
+      var xhr7;
+      xhr7 = new XMLHttpRequest();
+
+      xhr7.onreadystatechange = function() {
+        if (xhr7.readyState == 4 && xhr7.status == 200) {
+          var objLibros = JSON.parse(xhr7.responseText);
+
           console.log(objLibros);
+          var arrLibros = objLibros.records;
           console.log(arrLibros);
           for (var i = 0; i < arrLibros.length; i++) {
             tabla.row.add({
-              //"Isbn": '<a href="javascript:void(0)" onclick="viewLibro(' + arrLibros.records[i].id + ')>' + arrLibros.records[i].isbn + '</a>',
-
-              "isbn": objLibros.records[i].isbn,
-              "cubierta": '<img src="' + objLibros.records[i].cubierta + '" height="30px">',
+              //"Isbn"		: '<a href="javascript:void(0)" onclick="viewLibro('+objLibros.records[i].id+')>'+objLibros.records[i].isbn+'</a>',
+             "isbn": objLibros.records[i].isbn,
+             "cubierta": '<img src="' + objLibros.records[i].cubierta + '" height="30px">',
               "titulo": objLibros.records[i].titulo,
               "editorial": objLibros.records[i].editorial,
               "seccion": objLibros.records[i].seccion,
               "tema": objLibros.records[i].tema
-            })
+            });
           }
           tabla.draw();
-
+          $('#ajaxModal').modal('hide');
         }
       }
 
+      xhr7.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/', true);
+      xhr7.send();
 
 
-      if (seccionId == "" && temasId == "") {
-        xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/', true);
+      //
+      // <!-- *********************************************   filtraje   relleno datatable via AJAX**************************************************** -->
+
+
+      document.getElementById("btnFiltrar").onclick = function() {
+
+        tabla.clear().draw();
+        var seccionId = document.getElementById("tblSecciones").value;
+        var temasId = document.getElementById("tblTemas").value;
+        var editorialId = document.getElementById("tblEditoriales").value;
+        console.log(seccionId);
+        console.log(temasId);
+        console.log(editorialId);
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            var objLibros = JSON.parse(xhr.responseText);
+            var arrLibros = objLibros.records;
+            console.log(objLibros);
+            console.log(arrLibros);
+            for (var i = 0; i < arrLibros.length; i++) {
+              tabla.row.add({
+                //"Isbn": '<a href="javascript:void(0)" onclick="viewLibro(' + objLibros.records[i].id + ')>' + objLibros.records[i].isbn + '</a>',
+
+                "isbn": objLibros.records[i].isbn,
+                "cubierta": '<img src="' + objLibros.records[i].cubierta + '" height="30px">',
+                "titulo": objLibros.records[i].titulo,
+                "editorial": objLibros.records[i].editorial,
+                "seccion": objLibros.records[i].seccion,
+                "tema": objLibros.records[i].tema
+              })
+            }
+            tabla.draw();
+
+          }
+        }
+
+
+
+        if (seccionId == "" && temasId == "") {
+          xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/', true);
+
+        }
+
+        if (!seccionId == "" && temasId == "") {
+          xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/seccion/' + seccionId + '/', true);
+
+        }
+
+        if (!seccionId == "" && !temasId == "") {
+          xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/seccion/' + seccionId + '/tema/' + temasId + '/', true);
+
+        }
+
+
+
+        if (seccionId == "" && !editorialId == "") {
+          xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/editoriales/' + editorialId + '/', true);
+
+        }
+
+
+        if (!seccionId == "" && !editorialId == "") {
+          xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/seccion/' + seccionId + '/editorial/' + editorialId + '/', true);
+
+        }
+
+
+        if (!seccionId == "" && !temasId == "" && !editorialId == "") {
+          xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/seccion/' + seccionId + '/tema/' + temasId + '/editorial/' + editorialId + '/', true);
+
+        }
+        xhr.send();
 
       }
 
-      if (!seccionId == "" && temasId == "") {
-        xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/seccion/' + seccionId + '/', true);
+      // ************************************************  boton de borraje ****************************************************
 
+      document.getElementById("btnBorrar").onclick = function() {
+        document.getElementById("tblSecciones").value = "";
+        document.getElementById("tblTemas").value = "";
+        document.getElementById("tblEditoriales").value = "";
       }
 
-      if (!seccionId == "" && !temasId == "") {
-        xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/seccion/' + seccionId + '/tema/' + temasId + '/', true);
+      // ***************************************************** modal libro ********************************************************
 
-      }
+  //     function viewLibro(id){
+  //  		console.log(id);
+  // 	 	//------------------------------LLamada Ajax para centros modal----------------------------------
+  // 	 	xhr.onreadystatechange = function(){
+  // 	 		if(xhr.readyState==4 && xhr.status==200){
+  // 	 			var objlibroModal = JSON.parse(xhr.responseText);
+  // 				console.log(objlibroModal);
+  // 				var libroModal = objOfertaCentros.record;
+  // 				console.log(libroModal);
+  // 				var values =Object.values(libroModal);
+  // 				console.log(values);
+  // 				document.getElementById("modCodOferta").innerHTML = values[1];
+  // 				document.getElementById("modCurso").innerHTML = values[10].nombre;
+  // 				document.getElementById("modFInicio").innerHTML = values[2];
+  // 				document.getElementById("modFFin").innerHTML = values[3];
+  // 				document.getElementById("modPlazas").innerHTML = values[5];
+  // 				document.getElementById("modProfesor").innerHTML = values[13].nombre +" "+ values[13].apellidos;
+  // 				document.getElementById("modDuracion").innerHTML = values[10].duracion;
+  // 				document.querySelector("#collapseOne div").innerHTML = values[10].objetivos;
+  // 				document.querySelector("#collapseTwo div").innerHTML = values[10].programa;
+  // 				document.getElementById("center").innerHTML = values[12].nombre;
+  // 				document.getElementById("tf").innerHTML = values[12].telefono;
+  // 				document.getElementById("mail").innerHTML = values[12].buzon;
+  // 				document.getElementById("calendar").innerHTML = values[12].horario;
+  // 				document.getElementById("address").innerHTML = values[12].direccion;
+  // 				document.getElementById("acceso").innerHTML = values[12].acceso;
+  // 				document.getElementById("acceso").innerHTML = values[12].acceso;
+  // 				var imgCentro='<img src="' + values[12].media+'" class="w-100" style="object-fit:cover">' ;
+  // 				document.getElementById("img").innerHTML=imgCentro;
+  // 	 		}
+  //
+  //
+  // 		xhr.open('GET','http://app.cifo.local/api/public/biblioteca/' + id +'/', true);
+  // 	 	xhr.send();
+	// }
+  // 	 	$('#modalCentro').modal('show')
+  // 	 }
 
-
-
-      if (seccionId == "" && !editorialId == "") {
-        xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/editoriales/' + editorialId + '/', true);
-
-      }
-
-
-      if (!seccionId == "" && !editorialId == "") {
-        xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/seccion/' + seccionId + '/editorial/' + editorialId + '/', true);
-
-      }
-
-
-      if (!seccionId == "" && !temasId == "" && !editorialId == "") {
-        xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/seccion/' + seccionId + '/tema/' + temasId + '/editorial/' + editorialId + '/', true);
-
-      }
-      xhr.send();
-
-    }
-
-    // ************************************************  boton de borraje ****************************************************
-
-    document.getElementById("btnBorrar").onclick = function() {
-      document.getElementById("tblSecciones").value = "";
-      document.getElementById("tblTemas").value = "";
-      document.getElementById("tblEditoriales").value = "";
-    }
-
-    // ***************************************************** modal libro ********************************************************
-
-    // function viewLibro(id){
-    //
-    // 	 	xhr.onreadystatechange = function(){
-    // 	 		if(xhr.readyState==4 && xhr.status==200){
-    // 	 			var libroarr = JSON.parse(xhr.responseText);
-    // 				//console.log(objCentrosModal);
-    // 				var OfertaCentros = objOfertaCentros.record;
-    // 				//console.log(OfertaCentros);
-    // 				var values =Object.values(OfertaCentros);
-    //
-    // }
-     }
   </script>
 </body>
 
