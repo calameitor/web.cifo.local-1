@@ -113,23 +113,62 @@
   <!-- =========================== div#libroModal ===================== -->
   <!-- Modal -->
   <div class="modal fade" id="libroModal" tabindex="-1" role="dialog" aria-labelledby="cursoModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="cursoModalLabel">Ficha de Curso</h5>
+          <h5 class="modal-title" id="cursoModalLabel"></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
+          <div class="container-fluid">
+            <div class="accordion" id="accordionExample">
 
+              <div class="d-flex justify-content-between">
+                <!--  -between  -->
+                <div id="parrafo1-1" class="p-2 flex-grow-1 w-75">
+                  <!-- flex-fill -->
+                  <!-- flex-grow-1 -->
+                </div>
+                <div id="parrafo1-2" class="p-2 flex-shrink-1 d-flex align-items-stretch mw-25">
+                  <!-- d-flex align-items-stretch -->
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header" id="headingTwo">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      Descripción</button>
+                  </h2>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                  <div class="card-body"></div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      Autores</button>
+                  </h2>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                  <div class="card-body"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <!--  <button type="button" class="btn btn-primary">Save changes</button> -->
         </div>
       </div>
     </div>
   </div>
+
 
   <div data-include="Footer.html"></div>
 
@@ -187,6 +226,8 @@
 
 
     /* ------------------------------------- get libros ----------------------------- */
+
+
     var xhr;
     xhr = new XMLHttpRequest();
 
@@ -194,24 +235,24 @@
       if (xhr.readyState == 4 && xhr.status == 200) {
         var objLibros = JSON.parse(xhr.responseText);
 
-			//console.log(objOfertas);
-			var arrLibros = objLibros.records;
-			//console.log(arrOfertas);
-			for(var i=0; i<arrLibros.length; i++){
-            tabla.row.add({
-              //"Isbn"		: '<a href="javascript:void(0)" onclick="viewLibro('+objResponse.records[i].id+')>'+objResponse.records[i].isbn+'</a>',
-              "isbn": objLibros.records[i].isbn,
-              "cubierta": '<img src="' + objLibros.records[i].cubierta + '" height="30px">',
-              "titulo": objLibros.records[i].titulo,
-              "editorial": objLibros.records[i].editorial,
-              "seccion": objLibros.records[i].seccion,
-              "tema": objLibros.records[i].tema
-            });
-          }
-          tabla.draw();
-          $('#ajaxModal').modal('hide');
+        console.log(objLibros);
+        var arrLibros = objLibros.records;
+        console.log(arrLibros);
+        for (var i = 0; i < arrLibros.length; i++) {
+          tabla.row.add({
+            //"Isbn"		: '<a href="javascript:void(0)" onclick="viewLibro('+objLibros.records[i].id+')>'+objLibros.records[i].isbn+'</a>',
+            "isbn": objLibros.records[i].isbn,
+            "cubierta": '<img src="' + objLibros.records[i].cubierta + '" height="30px">',
+            "titulo": objLibros.records[i].titulo,
+            "editorial": objLibros.records[i].editorial,
+            "seccion": objLibros.records[i].seccion,
+            "tema": objLibros.records[i].tema
+          });
         }
+        tabla.draw();
+        $('#ajaxModal').modal('hide');
       }
+    }
 
     xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/', true);
     xhr.send();
@@ -247,7 +288,6 @@
 
 
     document.getElementById("tblSecciones").onchange = function() {
-
       document.getElementById("tblTemas").innerHTML = '<option value="">-- Escoge un Tema --</option>';
 
       var xhr;
@@ -258,7 +298,9 @@
           var arrTemas = JSON.parse(this.responseText);
           console.log(arrTemas.status);
           console.log(arrTemas.records);
-
+          console.log(("tblSecciones").value);
+          console.log(("tblTemas").value);
+          console.log(("tblEditoriales").value);
           for (j in arrTemas.records) {
             var cadena = '<option value=' + arrTemas.records[j].id + '>';
             cadena += arrTemas.records[j].nombre + '</option>';
@@ -268,18 +310,19 @@
       }
       xhr.open("GET", "http://app.cifo.local/api/public/biblioteca/temas/seccion/" + this.value + "/" + "&nocache=" + Math.random(), true);
       xhr.send(null);
-    }
+
+
+
 
     /* ======================= GET EITORILES     llamada AJAX ============================== */
-document.getElementById('tblTemas').onchange = function() {
-
-    var xhr;
-
-    xhr = new XMLHttpRequest();
 
 
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState == 4 && xhr.status == 200) {
+    // document.getElementById('tblTemas').onchange = function() {
+
+    var xhr8;
+    xhr8 = new XMLHttpRequest();
+    xhr8.onreadystatechange = function() {
+      if (xhr8.readyState == 4 && xhr8.status == 200) {
         var arrEditoriales = JSON.parse(this.responseText);
         console.log(arrEditoriales.status);
         console.log(arrEditoriales.records);
@@ -287,52 +330,114 @@ document.getElementById('tblTemas').onchange = function() {
         for (j in arrEditoriales.records) {
           var cadena = '<option value=' + arrEditoriales.records[j].id + '>';
           cadena += arrEditoriales.records[j].nombre + '</option>';
-          document.getElementById('tblTemas').innerHTML += cadena;
+          document.getElementById('tblEditoriales').innerHTML += cadena;
         }
       }
-    }
-    xhr.open("GET", "http://app.cifo.local/api/public/biblioteca/temas/seccion/" + this.value + "/" + "&nocache=" + Math.random(), true);
-    xhr.send(null);
+
   }
-    // ******************************************     filtraje ************************************************
+    xhr8.open("GET", "http://app.cifo.local/api/public/biblioteca/editoriales/", true);
+    xhr8.send();
+
+
 
     //
-    //     document.getElementById("btnFiltrar").onclick = function(){
-    // tabla.clear().draw();
-    // var SeccionesId = document.getElementById("tblSecciones").value;
-    // var LibrosId = document.getElementById("tblTemas").value;
+    // <!-- *********************************************   filtraje   relleno datatable via AJAX**************************************************** -->
+
+
+    document.getElementById("btnFiltrar").onclick = function() {
+
+      tabla.clear().draw();
+      var seccionId = document.getElementById("tblSecciones").value;
+      var temasId = document.getElementById("tblTemas").value;
+      var editorialId = document.getElementById("tblEditoriales").value;
+      console.log(seccionId);
+      console.log(temasId );
+      console.log(editorialId);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          var objLibros = JSON.parse(xhr.responseText);
+          var arrLibros = objLibros.records;
+          console.log(objLibros);
+          console.log(arrLibros);
+          for (var i = 0; i < arrLibros.length; i++) {
+            tabla.row.add({
+              //"Isbn": '<a href="javascript:void(0)" onclick="viewLibro(' + arrLibros.records[i].id + ')>' + arrLibros.records[i].isbn + '</a>',
+
+              "isbn": objLibros.records[i].isbn,
+              "cubierta": '<img src="' + objLibros.records[i].cubierta + '" height="30px">',
+              "titulo": objLibros.records[i].titulo,
+              "editorial": objLibros.records[i].editorial,
+              "seccion": objLibros.records[i].seccion,
+              "tema": objLibros.records[i].tema
+            })
+          }
+          tabla.draw();
+
+        }
+      }
 
 
 
+      if (seccionId == "" && temasId == "") {
+        xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/', true);
 
-    // function viewLibro(id) {
-    //   document.querySelector('#libroModal .modal-body ').innerHTML = '';
-    //   $('#ajaxModal').modal('show');
-    //   xhr.onreadystatechange = function() {
-    //     if (xhr.readyState == 4 && xhr.status == 200) {
-    //       var objResponse = JSON.parse(xhr.responseText);
-    //       if (objResponse.status) {
-    //         for (key in objResponse.record) {
-    //           console.log(key);
-    //           var cadena = `<p>${key}: ${objResponse.record[key]}</p>`;
-    //           document.querySelector('#libroModal .modal-body ').innerHTML += cadena;
-    //         }
-    //         $('#ajaxModal').modal('hide');
-    //         $('#libroModal').modal('show');
-    //       }
-    //     }
-    //   }
-    //   xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/' + id + '/', true);
-    //   xhr.send();
+      }
+
+      if (!seccionId == "" && temasId == "") {
+        xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/seccion/' + seccionId + '/', true);
+
+      }
+
+      if (!seccionId == "" && !temasId == "") {
+        xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/seccion/' + seccionId + '/tema/' + temasId + '/', true);
+
+      }
+
+
+
+      if (seccionId == "" && !editorialId == "") {
+        xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/editoriales/' + editorialId + '/', true);
+
+      }
+
+
+      if (!seccionId == "" && !editorialId == "") {
+        xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/seccion/' + seccionId + '/editorial/' + editorialId + '/', true);
+
+      }
+
+
+      if (!seccionId == "" && !temasId == "" && !editorialId == "") {
+        xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/seccion/' + seccionId + '/tema/' + temasId + '/editorial/' + editorialId + '/', true);
+
+      }
+      xhr.send();
+
+    }
+
+    // ************************************************  boton de borraje ****************************************************
+
+    document.getElementById("btnBorrar").onclick = function() {
+      document.getElementById("tblSecciones").value = "";
+      document.getElementById("tblTemas").value = "";
+      document.getElementById("tblEditoriales").value = "";
+    }
+
+    // ***************************************************** modal libro ********************************************************
+
+    // function viewLibro(id){
+    //
+    // 	 	xhr.onreadystatechange = function(){
+    // 	 		if(xhr.readyState==4 && xhr.status==200){
+    // 	 			var libroarr = JSON.parse(xhr.responseText);
+    // 				//console.log(objCentrosModal);
+    // 				var OfertaCentros = objOfertaCentros.record;
+    // 				//console.log(OfertaCentros);
+    // 				var values =Object.values(OfertaCentros);
+    //
     // }
+     }
   </script>
-
-
-
-
-
-
-
 </body>
 
 
