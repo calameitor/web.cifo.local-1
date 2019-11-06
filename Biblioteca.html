@@ -32,17 +32,7 @@
 
 
 
-  <!-- <button class="btn btn-primary my-3" type="button" data-toggle="collapse" data-target="#collapseSelect1" aria-expanded="false" aria-controls="collapseExample">
-        Selecciona Secion Editorial<span class='fa fa-caret-down'></span>
-      </button>
-      <div class="collapse" id="collapseSelect1">
-        <select class="custom-select my-3" id="centro">
-          <option selected value=''>Selecciona seccion</option>
-        </select> <select class="custom-select mb-3" id="area">
-          <option selected value=''>Selecciona Editorial</option>
-        </select>
 
-      </div> -->
 
 
   <div class="row">
@@ -101,74 +91,101 @@
     </div>
   </div>
 
-  <!-- ========================== div#modalAjax ======================= -->
-  <div id="ajaxModal" class="modal" data-backdrop="static" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered justify-content-center" role="document">
-      <div class="spinner-border text-light">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
-  </div>
 
-  <!-- =========================== div#libroModal ===================== -->
   <!-- Modal -->
-  <div class="modal fade" id="libroModal" tabindex="-1" role="dialog" aria-labelledby="cursoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+  <div class="modal fade bd-modal-lg" id="ModalLibro" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true ">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="cursoModalLabel"></h5>
+          <h5 class="modal-title" id="exampleModalCenterTitle">LIBRO</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <div class="container-fluid">
-            <div class="accordion" id="accordionExample">
-
-              <div class="d-flex justify-content-between">
-                <!--  -between  -->
-                <div id="parrafo1-1" class="p-2 flex-grow-1 w-75">
-                  <!-- flex-fill -->
-                  <!-- flex-grow-1 -->
-                </div>
-                <div id="parrafo1-2" class="p-2 flex-shrink-1 d-flex align-items-stretch mw-25">
-                  <!-- d-flex align-items-stretch -->
-                </div>
+          <div class="row">
+            <div class="col-sm-8 col-md-8 col-lg-8">
+              <div class="pb-0 pt-1 mx-3 px-0 row">
+                <div class="col-6 justify-content-end d-flex text-black-50">Isbn</div>
+                <div id="isbnModal" class="col-6 bg-light text-dark"></div>
+              </div>
+              <div class="pb-0 pt-1 mx-3 px-0 row">
+                <div class="col-6 justify-content-end d-flex text-black-50">Titulo</div>
+                <div id="tituloModal" class="col-6 bg-light text-dark"></div>
+              </div>
+              <div class="pb-0 pt-1 mx-3 px-0 row">
+                <div class="col-6 justify-content-end d-flex text-black-50">Subtitulo</div>
+                <div id="subtituloModal" class="col-6 bg-light text-dark"></div>
+              </div>
+              <div class="pb-0 pt-1 mx-3 px-0 row">
+                <div class="col-6 justify-content-end d-flex text-black-50">Nº de Páginas</div>
+                <div id="paginaModal" class="col-6 bg-light text-dark"></div>
+              </div>
+              <div class="pb-0 pt-1 mx-3 px-0 row">
+                <div class="col-6 justify-content-end d-flex text-black-50">Editorial</div>
+                <div id="editorialModal" class="col-6 bg-light text-dark"></div>
+              </div>
+              <div class="pb-0 pt-1 mx-3 px-0 row">
+                <div class="col-6 justify-content-end d-flex text-black-50">Añor</div>
+                <div id="anoModal" class="col-6 bg-light text-dark"></div>
               </div>
 
-              <div class="card">
-                <div class="card-header" id="headingTwo">
-                  <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                      Descripción</button>
-                  </h2>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                  <div class="card-body"></div>
-                </div>
+              <div class="pb-2 pt-1 mx-3 px-0 row">
+                <div class="col-6 justify-content-end d-flex text-black-50">Tema</div>
+                <div id="temaModal" class="col-6 bg-light text-dark"></div>
               </div>
-              <div class="card">
-                <div class="card-header" id="headingThree">
-                  <h2 class="mb-0">
-                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                      Autores</button>
-                  </h2>
+              <div class="pb-2 pt-1 mx-3 px-0 row">
+                <div class="col-6 justify-content-end d-flex text-black-50">Sección</div>
+                <div id="seccionModal" class="col-6 bg-light text-dark"></div>
+              </div>
+              <div class="pb-2 pt-1 mx-3 px-0 row">
+                <div class="col-6 justify-content-end d-flex text-black-50">Nivel</div>
+                <div id="nivelModal" class="col-6 bg-light text-dark"></div>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-4 text-center">
+              <img class="img-responsive" id="fotolibroModal" title="Foto de la cubierta ">
+            </div>
+            <!-- ***************************************  Acordeón   ************************************************************************ -->
+            <div class="accordion " id="accordionExample">
+
+              <div data-target="#list-example" data-offset="0" class="scrollspy-example">
+                <div class="mx-3">
+                  <div id="btnObjetivo" class="modal-body mb-1 mx-0 p-0 row bg-secondary text-white border-secondary rounded-top">
+                    <i class="fa fa-thumbs-up mr-2 mt-2 ml-3"></i>
+                    <button class=" py-1 pl-0 text-white btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Descripcion
+                    </button>
+                  </div>
+                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="px-5 mb-1 border border-light card-body"></div>
+                    <div class="d-flex justify-content-end">
+                      <button id="cerrarObjetivos" type="button" class="mb-1 btn btn-light" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Cerrar</button>
+                    </div>
+                  </div>
                 </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                  <div class="card-body"></div>
+                <div class="mx-3">
+                  <div id="btnAutores" class="modal-body mb-1 mx-0 p-0 row bg-secondary text-white border-secondary">
+                    <i class="fa fa-bars mr-2 mt-2 ml-3"></i>
+                    <button class=" py-1 pl-0 text-white btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                      Autores
+                    </button>
+                  </div>
+                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <div class="px-5 mb-1 border border-light card-body"></div>
+                    <div class="d-flex justify-content-end">
+                      <button id="cerrarAutores" type="button" class="mb-1 btn btn-light" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Cerrar</button>
+                    </div>
+                  </div>
                 </div>
+
               </div>
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <!--  <button type="button" class="btn btn-primary">Save changes</button> -->
-        </div>
       </div>
     </div>
   </div>
-
 
   <div data-include="Footer.html"></div>
 
@@ -300,7 +317,7 @@
       ]
 
     });
-    $('#ajaxModal').modal('show');
+    // $('#ajaxModal').modal('show');
 
 
     /* ------------------------------------- get libros ----------------------------- */
@@ -328,7 +345,7 @@
           });
         }
         tabla.draw();
-        $('#ajaxModal').modal('hide');
+        // $('#ajaxModal').modal('hide');
       }
     }
 
@@ -419,28 +436,59 @@
       document.getElementById("tblEditoriales").value = "";
     }
 
-    // ***************************************************** modal libro ********************************************************
+    // ***************************************************** modal libro via API  AJAX********************************************************
 
-        function viewLibro(id){
-     		console.log(id);
+    function viewLibro(id) {
+      console.log(id);
 
-    	 	xhr.onreadystatechange = function(){
-    	 		if(xhr.readyState==4 && xhr.status==200){
-    	 			var objlibroModal = JSON.parse(xhr.responseText);
-    				console.log(objlibroModal);
-    				var libroModal = objOfertaCentros.record;
-    				console.log(libroModal);
-    				var values =Object.values(libroModal);
-    				console.log(values);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          var objlibroModal = JSON.parse(xhr.responseText);
+          console.log(objlibroModal);
+          var libroModal = objlibroModal.record;
+          console.log(libroModal);
+          var values = Object.values(libroModal);
+          console.log(values);
+          document.getElementById("isbnModal").innerHTML = values[1];
+          document.getElementById("tituloModal").innerHTML = values[2];
+          document.getElementById("subtituloModal").innerHTML = values[3];
+          document.getElementById("paginaModal").innerHTML = values[4];
+          document.getElementById("editorialModal").innerHTML = values[12];
+          document.getElementById("anoModal").innerHTML = values[5];
+          document.getElementById("temaModal").innerHTML = values[13];
+          document.getElementById("seccionModal").innerHTML = values[14];
+          document.getElementById("nivelModal").innerHTML = values[6];
+          document.querySelector("#collapseOne div").innerHTML = values[9];
 
-    	 		}
+
+          var autoresLibros = ''
+
+          for (var i = 0; 1 < objlibroModal.record.autores.length; i++) {
+            console.log(values);
+            document.querySelector("#collapseTwo div").innerHTML = values[15];
+
+            //   // autoresLibros += '<img src="' + libroModal.record.autores[i].foto + '" height="100px"></img>' +
+            //   //    '<h5>' + libroModal.record.autores[i].nombre + '&nbsp;' + libroModal.record.autores[i].apellidos + '</h5>' +
+            //   //    '<p>' + libroModal.record.autores[i].biografia + '</p>';
+          }
+          var imagenLibro = '<img id="fotoLibro" src="' + objlibroModal.record.cubierta + '" class="align-self-stretch border rounded" style="object-fit:cover" >';
+
+          document.querySelector("#collapseTwo div").innerHTML = autoresLibros;
+          document.getElementById("fotolibroModal").innerHTML = imagenLibro;
+          //
+          //
+          //
+          //
+
+        }
+      }
 
 
-    		xhr.open('GET','http://app.cifo.local/api/public/biblioteca/libros/' + id +'/', true);
-    	 	xhr.send();
+      xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/' + id + '/', true);
+      xhr.send();
+
+      $('#ModalLibro').modal('show')
     }
-    	 	$('#modalLibro').modal('show')
-    	 }
   </script>
 </body>
 
