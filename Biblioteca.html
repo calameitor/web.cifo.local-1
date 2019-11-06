@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <meta name="author" content="TBM" />
+  <meta name="description" content="CIFO La Violeta">
+  <meta name="keywords" content="formacion, SOC, CIFO, formación digital" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+  <!-- Fonts CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/cifo.css">
+  <link rel="icon" href="img/favicon.ico" type="image/gif" sizes="16x16">
+
+
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" />
+
+  <title>CIFO La Violeta</title>
+</head>
+
+<body class="container-fluid">
+  <div data-include="Nav.html"></div>
+  <div data-include="Header.html"></div>
+
+
+
+
+
+
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <div class="card h-100">
+        <div class="card-header">
+          Filtro
+        </div>
+        <div class="card-body">
+          Seccion
+          <select class="form-control" id="tblSecciones">
+            <option value="">-- Elija una opcion --</option>
+          </select>
+        </div>
+        <div class="card-body">
+          Temas
+          <select class="form-control" id="tblTemas">
+            <option value="">-- Elija una opcion --</option>
+          </select>
+        </div>
+        <div class="card-body">
+          Editoriales
+          <select class="form-control" id="tblEditoriales">
+            <option value="">-- Elija una opcion --</option>
+          </select>
+        </div>
+        <div class="d-flex justify-content-center mt-5">
+          <button type="button" id="btnBorrar" class="btn btn-danger mr-1">Borrar</button>
+          <button type="button" id="btnFiltrar" class="btn btn-info ml-1">Filtrar</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-8">
+      <div class="card h-100">
+        <div class="card-header">
+          Libros
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table id="tbllibros" class="table small">
+              <thead>
+                <tr>
+                  <th>Isbn</th>
+                  <th>Cubierta</th>
+                  <th>Titulo</th>
+                  <th>Editorial</th>
+                  <th>Seccion</th>
+                  <th>Tema</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade bd-modal-lg" id="ModalLibro" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true ">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">LIBRO</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-8 col-md-8 col-lg-8">
+              <div class="pb-0 pt-1 mx-3 px-0 row">
+                <div class="col-6 justify-content-end d-flex text-black-50">Isbn</div>
+                <div id="isbnModal" class="col-6 bg-light text-dark"></div>
+              </div>
+              <div class="pb-0 pt-1 mx-3 px-0 row">
+                <div class="col-6 justify-content-end d-flex text-black-50">Titulo</div>
+                <div id="tituloModal" class="col-6 bg-light text-dark"></div>
+              </div>
+              <div class="pb-0 pt-1 mx-3 px-0 row">
+                <div class="col-6 justify-content-end d-flex text-black-50">Subtitulo</div>
+                <div id="subtituloModal" class="col-6 bg-light text-dark"></div>
+              </div>
+              <div class="pb-0 pt-1 mx-3 px-0 row">
+                <div class="col-6 justify-content-end d-flex text-black-50">Nº de Páginas</div>
+                <div id="paginaModal" class="col-6 bg-light text-dark"></div>
+              </div>
+              <div class="pb-0 pt-1 mx-3 px-0 row">
+                <div class="col-6 justify-content-end d-flex text-black-50">Editorial</div>
+                <div id="editorialModal" class="col-6 bg-light text-dark"></div>
+              </div>
+              <div class="pb-0 pt-1 mx-3 px-0 row">
+                <div class="col-6 justify-content-end d-flex text-black-50">Añor</div>
+                <div id="anoModal" class="col-6 bg-light text-dark"></div>
+              </div>
+
+              <div class="pb-2 pt-1 mx-3 px-0 row">
+                <div class="col-6 justify-content-end d-flex text-black-50">Tema</div>
+                <div id="temaModal" class="col-6 bg-light text-dark"></div>
+              </div>
+              <div class="pb-2 pt-1 mx-3 px-0 row">
+                <div class="col-6 justify-content-end d-flex text-black-50">Sección</div>
+                <div id="seccionModal" class="col-6 bg-light text-dark"></div>
+              </div>
+              <div class="pb-2 pt-1 mx-3 px-0 row">
+                <div class="col-6 justify-content-end d-flex text-black-50">Nivel</div>
+                <div id="nivelModal" class="col-6 bg-light text-dark"></div>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-4 text-center">
+              <img class="img-responsive" id="fotolibroModal" title="Foto de la cubierta ">
+            </div>
+            <!-- ***************************************  Acordeón   ************************************************************************ -->
+            <div class="accordion " id="accordionExample">
+
+              <div data-target="#list-example" data-offset="0" class="scrollspy-example">
+                <div class="mx-3">
+                  <div id="btnObjetivo" class="modal-body mb-1 mx-0 p-0 row bg-secondary text-white border-secondary rounded-top">
+                    <i class="fa fa-thumbs-up mr-2 mt-2 ml-3"></i>
+                    <button class=" py-1 pl-0 text-white btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Descripcion
+                    </button>
+                  </div>
+                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="px-5 mb-1 border border-light card-body"></div>
+                    <div class="d-flex justify-content-end">
+                      <button id="cerrarObjetivos" type="button" class="mb-1 btn btn-light" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Cerrar</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="mx-3">
+                  <div id="btnAutores" class="modal-body mb-1 mx-0 p-0 row bg-secondary text-white border-secondary">
+                    <i class="fa fa-bars mr-2 mt-2 ml-3"></i>
+                    <button class=" py-1 pl-0 text-white btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                      Autores
+                    </button>
+                  </div>
+                  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <div class="px-5 mb-1 border border-light card-body"></div>
+                    <div class="d-flex justify-content-end">
+                      <button id="cerrarAutores" type="button" class="mb-1 btn btn-light" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Cerrar</button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div data-include="Footer.html"></div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" type="text/javascript"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" type="text/javascript"></script>
+
+  <!-- Datatable -->
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
+
+
+  <script src="js/multipage.js" type="text/javascript"></script>
+  <script>
+    /* ----------------------------------- GEt Secciones  llamada AJAX--------------------------- */
+    var xhr;
+    xhr = new XMLHttpRequest();
+
+
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        var objSecciones = JSON.parse(xhr.responseText);
+        var arrSecciones = objSecciones.records;
+
+        if (objSecciones.status) {
+          for (var j = 0; j < arrSecciones.length; j++) {
+            var cadena = '<option value="' + arrSecciones[j].id + '">' + arrSecciones[j].nombre + '</option>';
+            document.getElementById('tblSecciones').innerHTML += cadena;
+
+          }
+        }
+      }
+    }
+    xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/secciones/', true);
+    xhr.send();
+
+
+
+
+
+    /* ********************************************************* GET TEMAS  llamada AJAX ********************************************************** */
+
+
+
+    document.getElementById("tblSecciones").onchange = function() {
+      document.getElementById("tblTemas").innerHTML = '<option value="">-- Escoge un Tema --</option>';
+
+      var xhr;
+      xhr = new XMLHttpRequest();
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          var arrTemas = JSON.parse(this.responseText);
+          console.log(arrTemas.status);
+          console.log(arrTemas.records);
+
+          for (j in arrTemas.records) {
+            var cadena = '<option value=' + arrTemas.records[j].id + '>';
+            cadena += arrTemas.records[j].nombre + '</option>';
+            document.getElementById('tblTemas').innerHTML += cadena;
+          }
+        }
+      }
+      xhr.open("GET", "http://app.cifo.local/api/public/biblioteca/temas/seccion/" + this.value + "/" + "&nocache=" + Math.random(), true);
+      xhr.send(null);
+
+    }
+
+
+    /* ======================= GET EITORILES     llamada AJAX ============================== */
+
+
+
+    var xhr8;
+    xhr8 = new XMLHttpRequest();
+    xhr8.onreadystatechange = function() {
+      if (xhr8.readyState == 4 && xhr8.status == 200) {
+        var arrEditoriales = JSON.parse(this.responseText);
+        console.log(arrEditoriales.status);
+        console.log(arrEditoriales.records);
+
+        for (j in arrEditoriales.records) {
+          var cadena = '<option value=' + arrEditoriales.records[j].id + '>';
+          cadena += arrEditoriales.records[j].nombre + '</option>';
+          document.getElementById('tblEditoriales').innerHTML += cadena;
+        }
+      }
+
+    }
+    xhr8.open("GET", "http://app.cifo.local/api/public/biblioteca/editoriales/", true);
+    xhr8.send();
+
+    // ******************************************   relleno datatable ***************************************************************
+
+
+    var tabla = $('#tbllibros').DataTable({
+      language: {
+        url: "./spanish.datatable.json"
+      },
+      lengthMenu: [5, 10, 25, 50, 75, 100],
+      pageLength: 5,
+      columnDefs: [{
+          "data": "isbn",
+          "targets": 0
+        },
+        {
+          "data": "cubierta",
+          "targets": 1
+        },
+        {
+          "data": "titulo",
+          "targets": 2
+        },
+        {
+          "data": "editorial",
+          "targets": 3
+        },
+        {
+          "data": "seccion",
+          "targets": 4
+        },
+        {
+          "data": "tema",
+          "targets": 5
+        }
+      ]
+
+    });
+    // $('#ajaxModal').modal('show');
+
+
+    /* ------------------------------------- get libros ----------------------------- */
+
+
+    var xhr7;
+    xhr7 = new XMLHttpRequest();
+
+    xhr7.onreadystatechange = function() {
+      if (xhr7.readyState == 4 && xhr7.status == 200) {
+        var objLibros = JSON.parse(xhr7.responseText);
+
+        console.log(objLibros);
+        var arrLibros = objLibros.records;
+        console.log(arrLibros);
+        for (var i = 0; i < arrLibros.length; i++) {
+          tabla.row.add({
+            "isbn": '<a href="javascript:void(0)" onclick="viewLibro(' + arrLibros[i].id + ')">' + arrLibros[i].isbn + '</a>',
+            // "isbn": arrLibros[i].isbn,
+            "cubierta": '<img src="' + arrLibros[i].cubierta + '" height="30px">',
+            "titulo": arrLibros[i].titulo,
+            "editorial": arrLibros[i].editorial,
+            "seccion": arrLibros[i].seccion,
+            "tema": arrLibros[i].tema
+          });
+        }
+        tabla.draw();
+        // $('#ajaxModal').modal('hide');
+      }
+    }
+
+    xhr7.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/', true);
+    xhr7.send();
+
+
+    //
+    // <!-- *********************************************   filtraje   relleno datatable via AJAX**************************************************** -->
+
+
+    document.getElementById("btnFiltrar").onclick = function() {
+
+      tabla.clear().draw();
+      var seccionId = document.getElementById("tblSecciones").value;
+      var temasId = document.getElementById("tblTemas").value;
+      var editorialId = document.getElementById("tblEditoriales").value;
+      console.log(seccionId);
+      console.log(temasId);
+      console.log(editorialId);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          var objLibros = JSON.parse(xhr.responseText);
+          var arrLibros = objLibros.records;
+          console.log(objLibros);
+          console.log(arrLibros);
+          for (var i = 0; i < arrLibros.length; i++) {
+            tabla.row.add({
+
+              "isbn": '<a href="javascript:void(0)" onclick="viewLibro(' + arrLibros[i].id + ')" >' + arrLibros[i].isbn + '</a>',
+              //"isbn": arrLibros[i].isbn,
+              "cubierta": '<img src="' + arrLibros[i].cubierta + '" height="30px">',
+              "titulo": arrLibros[i].titulo,
+              "editorial": arrLibros[i].editorial,
+              "seccion": arrLibros[i].seccion,
+              "tema": arrLibros[i].tema
+            })
+          }
+          tabla.draw();
+
+        }
+      }
+
+
+
+      if (seccionId == "" && temasId == "") {
+        xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/', true);
+
+      }
+
+      if (!seccionId == "" && temasId == "") {
+        xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/seccion/' + seccionId + '/', true);
+
+      }
+
+      if (!seccionId == "" && !temasId == "") {
+        xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/seccion/' + seccionId + '/tema/' + temasId + '/', true);
+
+      }
+
+
+
+      if (seccionId == "" && !editorialId == "") {
+        xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/editoriales/' + editorialId + '/', true);
+
+      }
+
+
+      if (!seccionId == "" && !editorialId == "") {
+        xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/seccion/' + seccionId + '/editorial/' + editorialId + '/', true);
+
+      }
+
+
+      if (!seccionId == "" && !temasId == "" && !editorialId == "") {
+        xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/seccion/' + seccionId + '/tema/' + temasId + '/editorial/' + editorialId + '/', true);
+
+      }
+      xhr.send();
+
+    }
+
+    // ************************************************  boton de borraje ****************************************************
+
+    document.getElementById("btnBorrar").onclick = function() {
+      document.getElementById("tblSecciones").value = "";
+      document.getElementById("tblTemas").value = "";
+      document.getElementById("tblEditoriales").value = "";
+    }
+
+    // ***************************************************** modal libro via API  AJAX********************************************************
+
+    function viewLibro(id) {
+      console.log(id);
+
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          var objlibroModal = JSON.parse(xhr.responseText);
+          console.log(objlibroModal);
+          var libroModal = objlibroModal.record;
+          console.log(libroModal);
+          var values = Object.values(libroModal);
+          console.log(values);
+          document.getElementById("isbnModal").innerHTML = values[1];
+          document.getElementById("tituloModal").innerHTML = values[2];
+          document.getElementById("subtituloModal").innerHTML = values[3];
+          document.getElementById("paginaModal").innerHTML = values[4];
+          document.getElementById("editorialModal").innerHTML = values[12];
+          document.getElementById("anoModal").innerHTML = values[5];
+          document.getElementById("temaModal").innerHTML = values[13];
+          document.getElementById("seccionModal").innerHTML = values[14];
+          document.getElementById("nivelModal").innerHTML = values[6];
+          document.querySelector("#collapseOne div").innerHTML = values[9];
+
+
+          var autoresLibros = ''
+
+          for (var i = 0; 1 < objlibroModal.record.autores.length; i++) {
+            console.log(values);
+            document.querySelector("#collapseTwo div").innerHTML = values[15];
+
+            //   // autoresLibros += '<img src="' + libroModal.record.autores[i].foto + '" height="100px"></img>' +
+            //   //    '<h5>' + libroModal.record.autores[i].nombre + '&nbsp;' + libroModal.record.autores[i].apellidos + '</h5>' +
+            //   //    '<p>' + libroModal.record.autores[i].biografia + '</p>';
+          }
+          var imagenLibro = '<img id="fotoLibro" src="' + objlibroModal.record.cubierta + '" class="align-self-stretch border rounded" style="object-fit:cover" >';
+
+          document.querySelector("#collapseTwo div").innerHTML = autoresLibros;
+          document.getElementById("fotolibroModal").innerHTML = imagenLibro;
+          //
+          //
+          //
+          //
+
+        }
+      }
+
+
+      xhr.open('GET', 'http://app.cifo.local/api/public/biblioteca/libros/' + id + '/', true);
+      xhr.send();
+
+      $('#ModalLibro').modal('show')
+    }
+  </script>
+</body>
+
+
+</html>
