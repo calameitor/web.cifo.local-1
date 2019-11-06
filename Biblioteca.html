@@ -317,7 +317,7 @@
       ]
 
     });
-    // $('#ajaxModal').modal('show');
+   
 
 
     /* ------------------------------------- get libros ----------------------------- */
@@ -336,7 +336,6 @@
         for (var i = 0; i < arrLibros.length; i++) {
           tabla.row.add({
             "isbn": '<a href="javascript:void(0)" onclick="viewLibro(' + arrLibros[i].id + ')">' + arrLibros[i].isbn + '</a>',
-            // "isbn": arrLibros[i].isbn,
             "cubierta": '<img src="' + arrLibros[i].cubierta + '" height="30px">',
             "titulo": arrLibros[i].titulo,
             "editorial": arrLibros[i].editorial,
@@ -376,7 +375,6 @@
             tabla.row.add({
 
               "isbn": '<a href="javascript:void(0)" onclick="viewLibro(' + arrLibros[i].id + ')" >' + arrLibros[i].isbn + '</a>',
-              //"isbn": arrLibros[i].isbn,
               "cubierta": '<img src="' + arrLibros[i].cubierta + '" height="30px">',
               "titulo": arrLibros[i].titulo,
               "editorial": arrLibros[i].editorial,
