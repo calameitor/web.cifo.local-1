@@ -29,6 +29,10 @@ function includeHTML(e) {
 					if (this.status == 200) {
 						
 						elmnt.outerHTML = this.responseText;
+					
+					//insert Breadcrumb									
+						if (file == "Header.html"){activeMenu()};
+						
 					//start script injection										
 						if (file == "Footer.html"){injectLibFromStack()};
 					}
@@ -89,10 +93,8 @@ function activeMenu(e) {
   // JS files that need to be loaded one after the other
 
 var libs = [
-	'js/View.js',
-    'js/Controller.js',
 	'js/cookies.js',
-    'js/persistence.js',    
+    'js/persistence.js',
     'js/custom.js',
     ];
   

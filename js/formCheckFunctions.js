@@ -1,5 +1,5 @@
 /**
- * Form Check - Functions checking field validity. All initiated by fsXXXX Needs
+ * Form Check - Functions checking field validity. All initiated by fcXXXX Needs
  * to be added to the click button main event
  */
 
@@ -32,16 +32,17 @@ function fcPhone(form, a) {
 	return (patt.test(form[a].value))
 }
 
+// Checks if button checked/marked
 function fcChecked(form, a) {
 	return (form[a].checked)
 }
-
+// Checks if radiobutton checked
 function fcRadioButton(ButtonName) {
 
 	return (ButtonName.value != "")
 
 }
-
+// Checks if date is introduced
 function fcDateCheck(form, a) {
 
 	inputDate = form[a].value;
@@ -55,7 +56,7 @@ function fcDateCheck(form, a) {
 
 	return ((day === +checkDate[0]) && (month + 1 === +checkDate[1]) && (year + 1900 === +checkDate[2]));
 }
-
+// Checks if multiselection has a parameter selected
 function fcMulSelect(form, a) {
 	
 	for (var i=0; i<form[a].options.length; i++){
