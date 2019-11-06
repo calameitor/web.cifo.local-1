@@ -37,7 +37,7 @@
 
   <div class="row">
     <div class="col-12 col-md-4">
-      <div class="card h-100">
+      <div class="card">
         <div class="card-header">
           Filtro
         </div>
@@ -92,7 +92,8 @@
   </div>
 
 
-  <!-- Modal -->
+  <!--********************************************************* Modal *******************************************************-->
+
   <div class="modal fade bd-modal-lg" id="ModalLibro" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true ">
     <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
       <div class="modal-content">
@@ -143,8 +144,8 @@
                 <div id="nivelModal" class="col-6 bg-light text-dark"></div>
               </div>
             </div>
-            <div class="col-sm-4 col-md-4 col-lg-4 text-center">
-              <img class="img-responsive" id="fotolibroModal" title="Foto de la cubierta ">
+            <div class="col-sm-4 col-md-4 col-lg-4">
+              <img class="img-responsive align-self-stretch border rounded" style="object-fit:cover" id="fotolibroModal" title="Foto de la cubierta " src="">
             </div>
             <!-- ***************************************  Acordeón   ************************************************************************ -->
             <div class="accordion " id="accordionExample">
@@ -317,7 +318,7 @@
       ]
 
     });
-   
+
 
 
     /* ------------------------------------- get libros ----------------------------- */
@@ -447,32 +448,38 @@
           console.log(libroModal);
           var values = Object.values(libroModal);
           console.log(values);
-          document.getElementById("isbnModal").innerHTML = values[1];
-          document.getElementById("tituloModal").innerHTML = values[2];
-          document.getElementById("subtituloModal").innerHTML = values[3];
-          document.getElementById("paginaModal").innerHTML = values[4];
-          document.getElementById("editorialModal").innerHTML = values[12];
-          document.getElementById("anoModal").innerHTML = values[5];
-          document.getElementById("temaModal").innerHTML = values[13];
-          document.getElementById("seccionModal").innerHTML = values[14];
-          document.getElementById("nivelModal").innerHTML = values[6];
-          document.querySelector("#collapseOne div").innerHTML = values[9];
+          document.getElementById("isbnModal").innerHTML = objlibroModal.record.isbn; //values[1]; // objlibroModal.record.isbn
+          document.getElementById("tituloModal").innerHTML = objlibroModal.record.titulo;
+          document.getElementById("subtituloModal").innerHTML = objlibroModal.record.subtitulo;
+          document.getElementById("paginaModal").innerHTML = objlibroModal.record.pagina;
+          document.getElementById("editorialModal").innerHTML = objlibroModal.record.editorial;
+          document.getElementById("anoModal").innerHTML = objlibroModal.record.anio_publicacion;
+          document.getElementById("temaModal").innerHTML = objlibroModal.record.tema;
+          document.getElementById("seccionModal").innerHTML = objlibroModal.record.seccion;
+          document.getElementById("nivelModal").innerHTML = objlibroModal.record.nivel;
+          document.querySelector("#collapseOne div.card-body").innerHTML = objlibroModal.record.descripcion;
 
 
-          var autoresLibros = ''
+          document.querySelector("#collapseTwo div.card-body").innerHTML = "";
 
-          for (var i = 0; 1 < objlibroModal.record.autores.length; i++) {
-            console.log(values);
-            document.querySelector("#collapseTwo div").innerHTML = values[15];
+          for (var i = 0; i < objlibroModal.record.autores.length; i++) {
+            if (i != 0) {
+              document.querySelector("#collapseTwo div.card-body").innerHTML += "<hr />";
+            }
+            console.log(objlibroModal.record.autores[i].nombre);
+            console.log(document.querySelector("#collapseTwo div.card-body"));
+            document.querySelector("#collapseTwo div.card-body").innerHTML += objlibroModal.record.autores[i].nombre;
+            document.querySelector("#collapseTwo div.card-body").innerHTML += '<img  class="" style="float:left; width:20px;" src="' + objlibroModal.record.autores[i].foto + '"   />';
+            document.querySelector("#collapseTwo div.card-body").innerHTML += '<p>' + objlibroModal.record.autores[i].biografia + '</p>';
 
             //   // autoresLibros += '<img src="' + libroModal.record.autores[i].foto + '" height="100px"></img>' +
             //   //    '<h5>' + libroModal.record.autores[i].nombre + '&nbsp;' + libroModal.record.autores[i].apellidos + '</h5>' +
             //   //    '<p>' + libroModal.record.autores[i].biografia + '</p>';
           }
-          var imagenLibro = '<img id="fotoLibro" src="' + objlibroModal.record.cubierta + '" class="align-self-stretch border rounded" style="object-fit:cover" >';
+          //  var imagenLibro = '<img id="fotoLibro" src="' + objlibroModal.record.cubierta + '" class="align-self-stretch border rounded" style="object-fit:cover" >';
 
-          document.querySelector("#collapseTwo div").innerHTML = autoresLibros;
-          document.getElementById("fotolibroModal").innerHTML = imagenLibro;
+          //document.querySelector("#collapseTwo div").innerHTML = autoresLibros;
+          document.getElementById("fotolibroModal").src = objlibroModal.record.cubierta;
           //
           //
           //
