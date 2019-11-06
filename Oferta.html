@@ -54,22 +54,74 @@
 			</div>
 
 		</div>
-		<div class="col-12 col-md-7 col-lg-9" id="showTable">
+		<div class="col-12 col-md-7 col-lg-9 my-3" id="showTable">
 			<table id="tblOfertas"
 				class="table table-striped table-bordered dt-responsive nowrap"
 				style="width: 80%">
 				<thead>
 					<tr>
 						<th>Por favor selecciona un Centro y/o Área de la red CIFO<br>
-							<br> <img alt="CIFO people"
-							src="img/people-coffee-tea-meeting.jpg" class="img-fluid" height=200px width=100%></th>
+
+							<br> <img alt="CIFO people" src="img/ofertasMain.jpg"
+							class="img-fluid" height=200px width=100%></th>
 					</tr>
 				</thead>
-				
+
+
 			</table>
 		</div>
 	</section>
 
+	<!-- Adding a modal with Course information -->
+	<div class="modal fade" id="modalCourse" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div
+			class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+			role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Detalles
+						de la Oferta</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="modalBody">
+					<div class="list-group">
+						<li class="list-group-item">${objCurso.nombre}</li>
+
+						<button type="button"
+							class="list-group-item list-group-item-action list-group-item-info"
+							data-toggle="collapse" data-target="#collapseObjetivos">
+							Objetivos<i class="fa fa-plus"></i>
+						</button>
+						<div class="collapse" id="collapseObjetivos">
+							<p>${objCurso.objetivos}</p>
+
+						</div>
+						<button type="button"
+							class="list-group-item list-group-item-action list-group-item-info"
+							data-toggle="collapse" data-target="#collapsePrograma">
+							Programa<i class="fa fa-plus"></i>
+						</button>
+						<div class="collapse" id="collapsePrograma">
+							<p>${objCurso.programa}</p>
+
+						</div>
+
+					</div>
+
+
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 
@@ -140,64 +192,61 @@
 		/* Carreguem la pagina al modificar l'area */	
 	
 	 	document.getElementById('area').addEventListener('change', ()=>{
-		var xhr3= new XMLHttpRequest();
-		document.getElementById('showTable').innerHTML = `<table id="tblOfertas"
-			class="table table-striped table-bordered dt-responsive nowrap"
-			style="width: 80%">
-			</table>`;
+			var xhr3= new XMLHttpRequest();
+			document.getElementById('showTable').innerHTML = `<table id="tblOfertas"
+				class="table table-striped table-bordered dt-responsive nowrap"
+				style="width: 80%">
+				</table>`;
 	
-		xhr3.addEventListener('load',()=>{
+				xhr3.addEventListener('load',()=>{
 
-			var cadena = `<thead>
-            	<tr>
-	                <th>Nombre</th>
-	                <th>Id Curso</th>
-	                <th>Código Oferta</th>
-	                <th>Inicio</th>
-	                <th>Fin</th>
-	                <th>Horario</th>
-	            </tr>
-	        	</thead><tbody>`
+					var cadena = `<thead>
+	            		<tr>
+			                <th>Nombre</th>
+			                <th>Código Oferta</th>
+			                <th>Inicio</th>
+			                <th>Fin</th>
+			                <th>Horario</th>
+			                <th>Plazas</th>
+			                <th>Duración</th>
+			            </tr>
+			        	</thead><tbody>`
 			
 			
-			var objOfertas = JSON.parse(xhr3.responseText);
+					var objOfertas = JSON.parse(xhr3.responseText);
 
-			for (var i=0;i<objOfertas.length;i++){
-				
-				let fechaInicio = objOfertas[i].datainicio.split('T')[0];
-				let fechaFin = objOfertas[i].datafin.split('T')[0];
-				var modelCursos =`<tr>
+					for (var i=0;i<objOfertas.length;i++){
 						
-			    	<td>${objOfertas[i].nombre}</td>
-			    	<td>${objOfertas[i].id}</td>
-			    	<td>${objOfertas[i].codigoferta}</td>
-			    	<td>${fechaInicio}</td>
-			    	<td>${fechaFin}</td>
-			    	<td>${objOfertas[i].horario}</td>
-			  		</tr>`
-			  		
-			 	cadena += modelCursos;
-			}
-			cadena += '</tbody>'
-			document.getElementById('tblOfertas').innerHTML = cadena;
-		 /* Montamos tabla con DataTable*/
-	  	 	$(document).ready(function() {
-			$('#tblOfertas').DataTable({
-				language:{
-					url: "js/localization_es.json",
+						let fechaInicio = objOfertas[i].datainicio.split('T')[0];
+						let fechaFin = objOfertas[i].datafin.split('T')[0];
+						var modelCursos =`<tr>
+								
+					    	<td>${objOfertas[i].nombre} <br> <u onclick="showModal(this)" data-id="${objOfertas[i].id}" style="color:blue;cursor:pointer">+EXTRAINFO</u></td>
+					    	<td>${objOfertas[i].codigoferta}</td>
+					    	<td>${fechaInicio}</td>
+					    	<td>${fechaFin}</td>
+					    	<td>${objOfertas[i].horario}</td>
+					    	<td>${objOfertas[i].plazas}</td>
+					    	<td>${objOfertas[i].duracion}</td>
+					  		</tr>`
+					  		
+					 	cadena += modelCursos;
+					}
+					cadena += '</tbody>'
+					document.getElementById('tblOfertas').innerHTML = cadena;
+				 /* Montamos tabla con DataTable*/
+			  	 	$(document).ready(function() {
+					$('#tblOfertas').DataTable({
+						language:{
+							url: "js/localization_es.json",
+							
+						}
+						});
+					});  
 					
-				}
-			});
-			});  
-	
-		});	
+				});	
 			var centroSel=document.getElementById('centro').value;
-		/* 	if (centroSel== '0'){
-				xhr3.open("GET", `http://app.cifo.local/api/public/formacion/ofertas/area/${event.target.value}/`, true);				
-			}
-			else{
-				xhr3.open("GET", `http://app.cifo.local/api/public/formacion/ofertas/area/${event.target.value}/centro/${centroSel}/`, true);
-			} */
+
 		xhr3.open("GET", `cifoOfertas.js?centro=${centroSel}&area=${event.target.value}`)	
 		xhr3.send();
 		}); 
@@ -215,27 +264,29 @@
 			var cadena = `<thead>
             	<tr>
 	                <th>Nombre</th>
-	                <th>Id Curso</th>
 	                <th>Código Oferta</th>
 	                <th>Inicio</th>
 	                <th>Fin</th>
 	                <th>Horario</th>
+	                <th>Plazas</th>
+	                <th>Duración</th>
 	            </tr>
 	        	</thead><tbody>`
 	        	
 			var objOfertas = JSON.parse(xhr4.responseText);
-						
+
 			for (var i=0;i<objOfertas.length;i++){
 				
 				let fechaInicio = objOfertas[i].datainicio.split('T')[0];
 				let fechaFin = objOfertas[i].datafin.split('T')[0];
 				var modelCursos =`<tr>
-					<td>${objOfertas[i].nombre}</td>
-					<td>${objOfertas[i].id}</td>
+					<td>${objOfertas[i].nombre} <br> <u onclick="showModal(this)" data-id="${objOfertas[i].id}" data-centro="${objOfertas[i].id_centros}"style="color:blue;cursor:pointer">+EXTRAINFO</u></td>
 					<td>${objOfertas[i].codigoferta}</td>
 			    	<td>${fechaInicio}</td>
 			    	<td>${fechaFin}</td>
 			    	<td>${objOfertas[i].horario}</td>
+			    	<td>${objOfertas[i].plazas}</td>
+			    	<td>${objOfertas[i].duracion}</td>
 			  		</tr>`
 			  		
 				cadena += modelCursos;
@@ -249,22 +300,80 @@
 						url: "js/localization_es.json",
 						
 					}
-				});
+					});
 				}); 
-	
+		 	  	var cursosPlus = document.getElementsByClassName("zCursosPlus");
+				
 			});	
 			var areaSel=document.getElementById('area').value;
-/* 			if (areaSel== '0'){
-				xhr4.open("GET", `http://app.cifo.local/api/public/formacion/ofertas/centro/${event.target.value}/`, true);				
-			}
-			else{
-				xhr4.open("GET", `http://app.cifo.local/api/public/formacion/ofertas/area/${areaSel}/centro/${event.target.value}/`, true);
-			} */
+
 			xhr4.open("GET", `cifoOfertas.js?centro=${event.target.value}&area=${areaSel}`)	
 			xhr4.send();
 			
 		});
-		
+ 		
+		function showModal(curso){
+			
+			
+			/* Fem la crida al llistat d'areas i omplim el selector */
+			var xhr5= new XMLHttpRequest();
+			var cursoId = curso.getAttribute("data-id");
+			var centroId = curso.getAttribute("data-centro")-1; // accedemos por el puntero del array
+			xhr5.addEventListener('load',()=>{
+
+				var objCurso = JSON.parse(xhr5.responseText)[0];
+				var objCentro = JSON.parse(sessionStorage.getItem('cifoCoor'))[centroId];
+
+				document.getElementById("modalBody").innerHTML = `<div class="list-group">
+						<li class="list-group-item">${objCurso.nombre}</li>
+						
+						<button type="button"
+							class="list-group-item list-group-item-action list-group-item-info"
+							data-toggle="collapse" data-target="#collapseObjetivos">Objetivos<i class="fa fa-plus"></i></button>
+						<div class="collapse" id="collapseObjetivos">
+							<p>${objCurso.objetivos}</p>
+
+						</div>
+						<button type="button"
+							class="list-group-item list-group-item-action list-group-item-info"
+							data-toggle="collapse" data-target="#collapsePrograma">Programa<i class="fa fa-plus"></i></button>
+						<div class="collapse" id="collapsePrograma">
+							<p>${objCurso.programa}</p>
+
+						</div>
+						<button type="button"
+							class="list-group-item list-group-item-action list-group-item-info"
+							data-toggle="collapse" data-target="#collapseCentro">Centro<i class="fa fa-plus"></i></button>
+						<div class="collapse" id="collapseCentro">
+							<div class="card p-3 m-3 h-100 justify-content-center">
+										
+								
+								<div class="card-body">
+									<h5 class="card-title text-primary">${objCentro.nombre}</h5>
+									<ul class="list-unstyled small">
+											<li><span class="fa fa-phone"></span>${objCentro.telefono}</li>
+											<li><span class="fa fa-envelope"></span>${objCentro.buzon}</li>
+											<li><i class="fa fa-clock-o" aria-hidden="true"></i>${objCentro.horario}</li>
+											<li><span class="fa fa-map-marker"></span>${objCentro.direccion}</li>
+											<li><br></li>
+											<li><span class="fa fa-road"></span>Acceso<br>${objCentro.acceso}</li>
+									</ul>
+								</div>	
+							</div>
+						</div>
+
+						</div>`;
+						
+				$('#modalCourse').modal();
+				
+			})	
+			
+			
+			xhr5.open("GET", `cifoCursos.js?curso=${cursoId}`);
+			xhr5.send();
+		/* 	<img src=${objCentro.media} class="card-img-top img-fluid" alt="...">  */
+
+		};
 		
 	</script>
 

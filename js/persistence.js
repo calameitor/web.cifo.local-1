@@ -13,6 +13,37 @@ if (!detectCookie('rgpda')){
 		cRG.classList.add("d-none")
 	})
 	
+// Add/Check coordinates for CIFO centres	
 
+	if (!sessionStorage.cifoCoor){
+		var xhr= new XMLHttpRequest();
+		
+		xhr.addEventListener('load',()=>{
 
-	
+			var cifoCoor= new Array();
+			var objCentros = JSON.parse(xhr.responseText);
+
+			for (var i=0;i<objCentros.length;i++){
+				let data = new Object();
+				data.nombre = objCentros[i].nombre;
+				data.buzon = objCentros[i].buzon;
+				data.telefono = objCentros[i].telefono;
+				data.direccion = objCentros[i].direccion;
+				data.descripcion = objCentros[i].descripcion;
+				data.acceso = objCentros[i].acceso;
+				data.horario = objCentros[i].horario;
+				data.media = objCentros[i].media;
+				data.lat = objCentros[i].lat;
+				data.lng = objCentros[i].lng;
+				
+				cifoCoor.push(data);
+			}
+			sessionStorage.setItem('cifoCoor',JSON.stringify(cifoCoor));
+			
+		})	
+		
+		xhr.open("GET", "cifoCentros.js", true);
+		xhr.send();
+		
+		
+	}

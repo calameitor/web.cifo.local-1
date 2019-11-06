@@ -13,42 +13,46 @@ window.addEventListener("DOMContentLoaded", includeHTML);
 
 function includeHTML(e) {
 
-  var z, i, elmnt, file, xhttp;
-  // loop through a collection of all HTML elements:
-  z = document.querySelectorAll("[data-include]");
 
-  for (i = 0; i < z.length; i++) {
-    elmnt = z[i];
-    //search for elements with a certain attribute:
-    file = elmnt.getAttribute("data-include");
-    if (file) {
-      // make an HTTP request using the attribute value as the file name:
-      xhttp = new XMLHttpRequest();
-      xhttp.addEventListener('readystatechange', function() {
-        if (this.readyState == 4) {
-          if (this.status == 200) {
+	var z, i, elmnt, file, xhttp;
+	// loop through a collection of all HTML elements: 
+	z = document.querySelectorAll("[data-include]");
 
-            elmnt.outerHTML = this.responseText;
-            //start script injection
-            if (file == "Footer.html") {
-              injectLibFromStack()
-            };
-          }
-          if (this.status == 404) {
-            elmnt.outerHTML = "Page not found.";
-          }
-          // remove the attribute, and call this function once more:
-          // elmnt.removeAttribute("data-include"); Not needed because
-          // I do an outerHTML and remove it with the new HTML
-          includeHTML();
-        }
-      });
-      xhttp.open("GET", file, true);
-      xhttp.send();
-      // exit the function:
-      return;
-    }
-  }
+	for (i = 0; i < z.length; i++) {
+		elmnt = z[i];
+		 //search for elements with a certain attribute: 
+		file = elmnt.getAttribute("data-include");
+		if (file) {
+			// make an HTTP request using the attribute value as the file name: 
+			xhttp = new XMLHttpRequest();
+			xhttp.addEventListener('readystatechange', function() {
+				if (this.readyState == 4) {
+					if (this.status == 200) {
+						
+						elmnt.outerHTML = this.responseText;
+					
+					//insert Breadcrumb									
+						if (file == "Header.html"){activeMenu()};
+						
+					//start script injection										
+						if (file == "Footer.html"){injectLibFromStack()};
+					}
+					if (this.status == 404) {
+						elmnt.outerHTML = "Page not found.";
+					}
+					// remove the attribute, and call this function once more: 
+					// elmnt.removeAttribute("data-include"); Not needed because
+					// I do an outerHTML and remove it with the new HTML
+					includeHTML();
+				}
+			});
+			xhttp.open("GET", file, true);
+			xhttp.send();
+			// exit the function: 
+			return;
+		}
+	}
+
 
 };
 
@@ -91,19 +95,37 @@ function activeMenu(e) {
 // JS files that need to be loaded one after the other
 
 var libs = [
-  'js/View.js',
-  'js/Controller.js',
-  'js/cookies.js',
-  'js/persistence.js',
-  'js/custom.js',
-];
 
-var injectLibFromStack = function() {
-  if (libs.length > 0) {
+	'js/cookies.js',
+    'js/persistence.js',
+    'js/custom.js',
+    ];
+  
+  var injectLibFromStack = function(){
+      if(libs.length > 0){
+        
+        //grab the next item on the stack
+        var nextLib = libs.shift();
+        var headTag = document.getElementsByTagName('head')[0];
+        
+        //create a script tag with this library
+        var scriptTag = document.createElement('script');
+        scriptTag.src = nextLib;
+        
+        //when successful, inject the next script
+        scriptTag.onload = function(e){
+          console.log("---> loaded: " + e.target.src);
+          injectLibFromStack();
+        };    
+        
+        //append the script tag to the <head></head>
+        headTag.appendChild(scriptTag);
+        console.log("injecting: " + nextLib);
+      }
+      else return;
+  }
+  
 
-    //grab the next item on the stack
-    var nextLib = libs.shift();
-    var headTag = document.getElementsByTagName('head')[0];
 
     //create a script tag with this library
     var scriptTag = document.createElement('script');
