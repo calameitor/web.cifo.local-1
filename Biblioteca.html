@@ -23,6 +23,9 @@
   <!-- ************************************   DataTables CSS *******************************************************************-->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" />
 
+
+
+
   <title>CIFO La Violeta</title>
 </head>
 <!-- ******************************************    data-include BODY   ************************************************************** -->
@@ -36,8 +39,10 @@
   <div class="row">
     <div class="col-12 col-md-4">
       <div class="card">
-        <div class="card-header">
-          Filtro
+
+        <div class="card-header text-white bg-info">
+          <i class="fa fa-filter"></i>
+          Filtrar
         </div>
         <div class="card-body">
           Seccion
@@ -58,19 +63,21 @@
           </select>
         </div>
         <div class="d-flex justify-content-center mt-5">
-          <button type="button" id="btnBorrar" class="btn btn-danger mr-1">Borrar</button>
-          <button type="button" id="btnFiltrar" class="btn btn-info ml-1">Filtrar</button>
+          <button type="button" id="btnFiltrar" class="btn btn-info mr-1">Filtrar</button>
+          <button type="button" id="btnBorrar" class="btn btn-danger ml-1">Borrar</button>
         </div>
       </div>
     </div>
     <div class="col-12 col-md-8">
       <div class="card h-100">
-        <div class="card-header">
+        <div class="card-header text-white bg-info">
+          <i class="fa fa-book"></i>
           Libros
         </div>
         <div class="card-body">
-          <div class="table-responsive">
-            <table id="tbllibros" class="table small">
+          <!-- <div class="table-responsive "> -->
+            <div class="display responsive nowrap ">
+            <table id="tbllibros" class="table small table-striped table-bordered">
               <thead>
                 <tr>
                   <th>Isbn</th>
@@ -151,7 +158,7 @@
               <div data-target="#list-example" data-offset="0" class="scrollspy-example">
                 <div class="mx-3">
                   <div id="btnObjetivo" class="modal-body mb-1 mx-0 p-0 row bg-secondary text-white border-secondary rounded-top">
-                    <i class="fa fa-thumbs-up mr-2 mt-2 ml-3"></i>
+                    <i class="fa fa-align-left mr-2 mt-2 ml-3"></i>
                     <button class=" py-1 pl-0 text-white btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                       Descripcion
                     </button>
@@ -165,7 +172,7 @@
                 </div>
                 <div class="mx-3">
                   <div id="btnAutores" class="modal-body mb-1 mx-0 p-0 row bg-secondary text-white border-secondary">
-                    <i class="fa fa-bars mr-2 mt-2 ml-3"></i>
+                    <i class="fa fa-user mr-2 mt-2 ml-3"></i>
                     <button class=" py-1 pl-0 text-white btn btn-link" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                       Autores
                     </button>
@@ -276,36 +283,38 @@
 
 
     var tabla = $('#tbllibros').DataTable({
-      language: {
-        url: "./spanish.datatable.json"
-      },
-      lengthMenu: [5, 10, 25, 50, 75, 100],
-      pageLength: 5,
-      columnDefs: [{
-          "data": "isbn",
-          "targets": 0
+
+        language: {
+          url: "./spanish.datatable.json"
         },
-        {
-          "data": "cubierta",
-          "targets": 1
-        },
-        {
-          "data": "titulo",
-          "targets": 2
-        },
-        {
-          "data": "editorial",
-          "targets": 3
-        },
-        {
-          "data": "seccion",
-          "targets": 4
-        },
-        {
-          "data": "tema",
-          "targets": 5
-        }
-      ]
+
+        lengthMenu: [5, 10, 25, 50, 75, 100],
+        pageLength: 5,
+        columnDefs: [{
+            "data": "isbn",
+            "targets": 0
+          },
+          {
+            "data": "cubierta",
+            "targets": 1
+          },
+          {
+            "data": "titulo",
+            "targets": 2
+          },
+          {
+            "data": "editorial",
+            "targets": 3
+          },
+          {
+            "data": "seccion",
+            "targets": 4
+          },
+          {
+            "data": "tema",
+            "targets": 5
+          }
+        ]
 
     });
 
@@ -449,8 +458,9 @@
             }
             console.log(objlibroModal.record.autores[i].nombre);
             console.log(document.querySelector("#collapseTwo div.card-body"));
-            document.querySelector("#collapseTwo div.card-body").innerHTML += objlibroModal.record.autores[i].nombre;
-            document.querySelector("#collapseTwo div.card-body").innerHTML += '<img  class="" style="float:left; width:20px;" src="' + objlibroModal.record.autores[i].foto + '"   />';
+
+            document.querySelector("#collapseTwo div.card-body").innerHTML += '<img  class="" style="float ; padding-right: 15px;padding-bottom: 15px; width:120px;" src="' + objlibroModal.record.autores[i].foto + '"   />';
+              document.querySelector("#collapseTwo div.card-body").innerHTML += '<strong>' +objlibroModal.record.autores[i].nombre+ '</strong>';
             document.querySelector("#collapseTwo div.card-body").innerHTML += '<p>' + objlibroModal.record.autores[i].biografia + '</p>';
             document.getElementById("fotolibroModal").src = objlibroModal.record.cubierta;
 
